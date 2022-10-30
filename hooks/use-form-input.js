@@ -22,7 +22,6 @@ function useFormInput(validate) {
 
   return {
     value,
-    valueIsValid,
     hasError,
     onChangeHandler,
     onBlurHandler,

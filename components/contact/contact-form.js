@@ -12,7 +12,6 @@ import {
 function ContactForm() {
   const {
     value: emailValue,
-    valueIsValid: emailValueIsValid,
     hasError: emailHasError,
     onChangeHandler: onEmailChangeHandler,
     onBlurHandler: onEmailBlurHandler,
@@ -20,7 +19,6 @@ function ContactForm() {
   } = useFormInput((value) => emailValidate(value));
   const {
     value: nameValue,
-    valueIsValid: nameValueIsValid,
     hasError: nameHasError,
     onChangeHandler: onNameChangeHandler,
     onBlurHandler: onNameBlurHandler,
@@ -28,7 +26,6 @@ function ContactForm() {
   } = useFormInput((value) => nameValidate(value));
   const {
     value: messageValue,
-    valueIsValid: messageValueIsValid,
     hasError: messageHasError,
     onChangeHandler: onMessageChangeHandler,
     onBlurHandler: onMessageBlurHandler,
