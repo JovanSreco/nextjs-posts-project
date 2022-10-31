@@ -11,13 +11,7 @@ function Layout({ children }) {
     <Fragment>
       <MainNavigation />
       <main>{children}</main>
-      {activeNotification && (
-        <Notification
-          title={activeNotification.title}
-          message={activeNotification.message}
-          status={activeNotification.status}
-        />
-      )}
+      {activeNotification && <Notification {...activeNotification} />}
     </Fragment>
   );
 }

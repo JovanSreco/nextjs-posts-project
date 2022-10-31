@@ -1,5 +1,10 @@
 import { MongoClient } from "mongodb";
 import React from "react";
+import {
+  nameValidate,
+  emailValidate,
+  messageValidate,
+} from "../../helpers/validation";
 
 async function handler(req, res) {
   if (req.method === "POST") {
@@ -7,11 +12,11 @@ async function handler(req, res) {
 
     if (
       !email ||
-      !email.includes("@") ||
+      !emailValidate(email) ||
       !name ||
-      name.trim() === "" ||
+      !nameValidate(name) ||
       !message ||
-      message.trim() === ""
+      !messageValidate(message)
     ) {
       res.status(422).json({ message: "Invalid input" });
       return;
@@ -27,7 +32,7 @@ async function handler(req, res) {
 
     try {
       client = await MongoClient.connect(
-        "mongodb+srv://JovanSre:kEMupCFrCiUPqSAX@cluster0.oohkwxr.mongodb.net/my-site?retryWrites=true&w=majority"
+        "mongodb+srv://JovanSreco:kEMupCFrCiUPqSAX@cluster0.oohkwxr.mongodb.net/my-site?retryWrites=true&w=majority"
       );
     } catch (error) {
       res.status(500).json({ message: "Could not connect to database." });
@@ -49,7 +54,6 @@ async function handler(req, res) {
 
     res.status(201).json({
       mesage: "Successfully stored message!",
-      mesage: newMessage,
     });
   }
 }

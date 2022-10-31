@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import NotificationContext from "../../context/notification-context";
 import classes from "./contact-form.module.css";
 import useHttp from "../../hooks/use-http";
@@ -12,6 +12,7 @@ import {
 function ContactForm() {
   const {
     value: emailValue,
+    valueIsValid: emailValueIsValid,
     hasError: emailHasError,
     onChangeHandler: onEmailChangeHandler,
     onBlurHandler: onEmailBlurHandler,
@@ -19,6 +20,7 @@ function ContactForm() {
   } = useFormInput((value) => emailValidate(value));
   const {
     value: nameValue,
+    valueIsValid: nameValueIsValid,
     hasError: nameHasError,
     onChangeHandler: onNameChangeHandler,
     onBlurHandler: onNameBlurHandler,
@@ -26,6 +28,7 @@ function ContactForm() {
   } = useFormInput((value) => nameValidate(value));
   const {
     value: messageValue,
+    valueIsValid: messageValueIsValid,
     hasError: messageHasError,
     onChangeHandler: onMessageChangeHandler,
     onBlurHandler: onMessageBlurHandler,
@@ -35,8 +38,17 @@ function ContactForm() {
   const notificationCtx = useContext(NotificationContext);
   const { sendContactData } = useHttp();
 
+  let formIsValid = false;
+  if (emailValueIsValid && nameValueIsValid && messageValueIsValid) {
+    formIsValid = true;
+  }
+
   async function sendMessageHandler(event) {
     event.preventDefault();
+
+    if (!formIsValid) {
+      return;
+    }
 
     notificationCtx.showNotification({
       status: "pending",
@@ -46,9 +58,9 @@ function ContactForm() {
 
     try {
       await sendContactData({
-        email: enteredEmail,
-        name: enteredName,
-        message: enteredMessage,
+        email: emailValue,
+        name: nameValue,
+        message: messageValue,
       });
       notificationCtx.showNotification({
         status: "success",
@@ -131,7 +143,9 @@ function ContactForm() {
           )}
         </div>
         <div className={classes.actions}>
-          <button type="submit">Send Message</button>
+          <button type="submit" disabled={!formIsValid}>
+            Send Message
+          </button>
         </div>
       </form>
     </section>
