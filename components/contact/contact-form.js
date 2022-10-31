@@ -87,7 +87,7 @@ function ContactForm() {
             />
             {emailHasError && (
               <p className={classes.error}>
-                Name must contain at least 3 alphanumeric characters
+                Enter Correct email! <br></br>Example: test.test@gmail.com
               </p>
             )}
           </div>
@@ -106,7 +106,7 @@ function ContactForm() {
             />
             {nameHasError && (
               <p className={classes.error}>
-                Enter Correct email! <br></br>Example: test.test@gmail.com
+                Name must contain at least 3 alphanumeric characters
               </p>
             )}
           </div>

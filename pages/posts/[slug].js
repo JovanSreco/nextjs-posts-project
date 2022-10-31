@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PostContent from "../../components/posts/post-detail/post-content";
 import Head from "next/head";
 import { getPostsFiles, getPostData } from "../../lib/posts-util";
